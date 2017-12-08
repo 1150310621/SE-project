@@ -27,7 +27,7 @@
               android:id="@+id/inputsubnum"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="量化目标：" />
+              android:text="量化子目标：" />
 
       <EditText
               android:layout_margin="8dp"

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.hit.wegoal.entityclass.goal;
+import com.hit.wegoal.entityclass.subgoal;
 
 import org.litepal.crud.DataSupport;
 
@@ -20,20 +21,28 @@ import java.util.List;
 
 public class goaladapter extends RecyclerView.Adapter<goaladapter.ViewHolder> implements ItemTouchHelperAdapter{
     private List<goal> mygoal;
-    private addInterface addsubgoal;   //添加子目标接口
-    private OnItemClickListener mOnItemClickListener;   //展示子目标接口
+    private addInterface addsubgoal;   //点击添加按钮的添加子目标接口
+    private remindInterfance addremindInterfance;   //添加提醒接口
+    private OnItemClickListener mOnItemClickListener;   //点击目标框的展示子目标接口
     private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+    @Override
     public void onItemMove(int fromPosition, int toPosition) {
         //交换位置
         Collections.swap(mygoal,fromPosition,toPosition);
         notifyItemMoved(fromPosition,toPosition);
     }
+    @Override
     public void onItemDissmiss(int position) {
         //移除数据
         DataSupport.deleteAll(goal.class,"goalname = ?",mygoal.get(position).getGoalname());
+        DataSupport.deleteAll(subgoal.class,"goalname = ?",mygoal.get(position).getGoalname());
         mygoal.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void addremindSetOnclick(remindInterfance addremindInterfance){
+        this.addremindInterfance=addremindInterfance;
     }
     public void addSetOnclick(addInterface addsubgoal){
         this.addsubgoal=addsubgoal;
@@ -41,23 +50,31 @@ public class goaladapter extends RecyclerView.Adapter<goaladapter.ViewHolder> im
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
         this.mOnItemClickListener = mOnItemClickListener;
     }
+
     public interface OnItemClickListener{
         void onItemClick(String goalname);
     }
+
     public interface addInterface{
         void onclick(String goalname);
     }
+    public interface remindInterfance{
+        void onclick(String goalname);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder{
         View goalview;
         TextView goalname;
         TextView deadline;
         ImageButton addsubgoal;
+        ImageButton addremind;
         public ViewHolder(View view){
             super(view);
             goalview=view;
             goalname=(TextView)view.findViewById(R.id.goalname);
             deadline=(TextView)view.findViewById(R.id.deadline);
             addsubgoal=(ImageButton)view.findViewById(R.id.addsubgoal);
+            addremind=(ImageButton)view.findViewById(R.id.addremind);
         }
     }
 
@@ -84,6 +101,15 @@ public class goaladapter extends RecyclerView.Adapter<goaladapter.ViewHolder> im
                 }
             });
         }
+        holder.addremind.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(addremindInterfance!=null) {
+                    addremindInterfance.onclick(agoal.getGoalname());
+                }
+            }
+        });
         holder.addsubgoal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

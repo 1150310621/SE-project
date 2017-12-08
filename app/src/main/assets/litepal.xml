@@ -5,5 +5,6 @@
     <list>
         <mapping class="com.hit.wegoal.entityclass.goal"></mapping>
         <mapping class="com.hit.wegoal.entityclass.subgoal"></mapping>
+        <mapping class="com.hit.wegoal.entityclass.remind"></mapping>
     </list>
 </litepal>

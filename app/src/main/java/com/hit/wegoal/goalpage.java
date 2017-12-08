@@ -6,21 +6,24 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.hit.wegoal.entityclass.goal;
+import com.hit.wegoal.entityclass.remind;
 import com.hit.wegoal.entityclass.subgoal;
 
+import org.feezu.liuli.timeselector.TimeSelector;
 import org.litepal.crud.DataSupport;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,11 +49,38 @@ public class goalpage extends AppCompatActivity {
             @Override
             public void onItemClick(String goalname) {
                 //这里跳转到对应子目标页面
-                Toast.makeText(goalpage.this,"展示子目标"+goalname,Toast.LENGTH_SHORT).show();
-
-
+                Intent intent2=new Intent(goalpage.this,subgoalpage.class);
+                intent2.putExtra("goalname",goalname);
+                startActivity(intent2);
             }
         });
+        goaladapter.addremindSetOnclick(new goaladapter.remindInterfance(){
+
+            @Override
+            public void onclick(final String goalname) {
+                //这里编写添加提醒的界面
+                final SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy-MM-dd HH:mm:ss");
+                Date curDate =  new Date(System.currentTimeMillis());
+                String now=formatter.format(curDate);
+                TimeSelector timeSelector = new TimeSelector(goalpage.this, new TimeSelector.ResultHandler() {
+                        @Override
+                    public void handle(String time) {
+                        Toast.makeText(goalpage.this, time, Toast.LENGTH_SHORT).show();
+                            Date date = null;
+                            try {
+                                date = formatter.parse(time);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            remind a=new remind();
+                            a.setRemindtime(date);
+                            a.updateAll("goalname = ?",goalname);
+                        }
+                },now, "3000-1-1 00:00:00");
+                timeSelector.show();
+            }
+        });
+
         goaladapter.addSetOnclick(new goaladapter.addInterface(){
             @Override
             public void onclick(final String goalname) {
@@ -70,14 +100,9 @@ public class goalpage extends AppCompatActivity {
                         input.setGoalname(goalname);
                         input.setSubgoal(subgoalname.getText().toString());
                         input.setActualnum(0);
-                        Log.d("goalpage","0");
                         input.setTotalnum(Integer.parseInt(subgoalnum.getText().toString()));
-                        Log.d("goalpage","1");
                         input.setDeadline(new Date(subgoaldeadline.getYear()-1900,subgoaldeadline.getMonth(),subgoaldeadline.getDayOfMonth()));
-                        Log.d("goalpage","2");
                         input.save();
-                        Log.d("goalpage","3");
-                        Log.d("goalpage","inputsuccess");
                         dialog.dismiss();
                     }
                 });
@@ -89,8 +114,7 @@ public class goalpage extends AppCompatActivity {
         LinearLayoutManager layoutManager=new LinearLayoutManager(goalpage.this);
         mygoal.setLayoutManager(layoutManager);
         mygoal.setHasFixedSize(true);
-        mygoal.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mygoal.setItemAnimator(new DefaultItemAnimator());
+        mygoal.addItemDecoration(new SpacesItemDecoration(18));
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback((ItemTouchHelperAdapter) goaladapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);

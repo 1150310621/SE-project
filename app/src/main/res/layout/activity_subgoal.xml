@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hit.wegoal.subgoalpage">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/subgoal"
-        android:scrollbars="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".subgoalpage">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            app:theme="@style/toolBar"
+            app:titleTextColor="#ffffff"
+            android:id="@+id/subgoaltoolbar"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:layout_width="match_parent"
+            android:background="#1296db"
+            android:minHeight="?android:attr/actionBarSize">
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/subgoal"
+            android:scrollbars="vertical"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent" />
+    </LinearLayout>
+</RelativeLayout>
