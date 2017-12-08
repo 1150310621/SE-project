@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/inputsubgoal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+      <TextView
+              android:layout_margin="8dp"
+              android:id="@+id/inputsubgoalname"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="子目标：" />
+
+      <EditText
+              android:layout_margin="8dp"
+              android:id="@+id/subgoalname"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+        />
+
+      <TextView
+              android:layout_margin="8dp"
+              android:id="@+id/inputsubnum"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="量化目标：" />
+
+      <EditText
+              android:layout_margin="8dp"
+              android:id="@+id/subgoalnum"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+        />
+
+      <TextView
+              android:layout_margin="8dp"
+              android:id="@+id/inputsubgoaldeadline"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="截止日期：" />
+
+      <DatePicker
+          android:id="@+id/subgoaldeadline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:calendarViewShown="false"  >
+      </DatePicker>
+    </LinearLayout>
+</ScrollView>

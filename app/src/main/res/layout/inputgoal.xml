@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/inputgoal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:layout_margin="8dp"
+        android:id="@+id/inputgoalname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="目标：" />
+
+    <EditText
+        android:layout_margin="8dp"
+        android:id="@+id/yougoalname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:layout_margin="8dp"
+        android:id="@+id/inputdeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="截止日期：" />
+
+    <DatePicker
+        android:id="@+id/thedeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false">
+    </DatePicker>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+    <dbname value="wegoal" />
+    <version value="1" />
+    <list>
+        <mapping class="com.hit.wegoal.entityclass.goal"></mapping>
+        <mapping class="com.hit.wegoal.entityclass.subgoal"></mapping>
+    </list>
+</litepal>
