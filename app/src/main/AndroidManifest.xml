@@ -17,6 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".alarmreceiver"></receiver>
+        <receiver android:name=".backappreceiver"></receiver>
         <activity android:name=".subgoalpage" />
     </application>
 

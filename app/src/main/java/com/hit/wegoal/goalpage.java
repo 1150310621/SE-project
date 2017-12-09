@@ -1,5 +1,8 @@
 package com.hit.wegoal;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -26,6 +30,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class goalpage extends AppCompatActivity {
     private FloatingActionButton addgoal;
@@ -59,7 +65,7 @@ public class goalpage extends AppCompatActivity {
             @Override
             public void onclick(final String goalname) {
                 //这里编写添加提醒的界面
-                final SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy-MM-dd HH:mm:ss");
+                final SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date curDate =  new Date(System.currentTimeMillis());
                 String now=formatter.format(curDate);
                 TimeSelector timeSelector = new TimeSelector(goalpage.this, new TimeSelector.ResultHandler() {
@@ -73,10 +79,18 @@ public class goalpage extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             remind a=new remind();
-                            a.setRemindtime(date);
-                            a.updateAll("goalname = ?",goalname);
+                            a.setRemindtime(date.getTime());
+                            a.setGoalname(goalname);
+                            a.save();
+                            AlarmManager alarmManager=alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                            Intent intent = new Intent(goalpage.this, alarmreceiver.class);
+                            intent.putExtra("goalname",goalname);
+                            int num=DataSupport.findAll(remind.class).size();
+                            Log.d("goalpage","a"+num);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(goalpage.this,num, intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                            alarmManager.set(AlarmManager.RTC_WAKEUP,date.getTime(), pendingIntent);
                         }
-                },now, "3000-1-1 00:00:00");
+                },now, "2999-12-31 23:59:59");
                 timeSelector.show();
             }
         });
@@ -100,10 +114,13 @@ public class goalpage extends AppCompatActivity {
                         input.setGoalname(goalname);
                         input.setSubgoal(subgoalname.getText().toString());
                         input.setActualnum(0);
-                        input.setTotalnum(Integer.parseInt(subgoalnum.getText().toString()));
-                        input.setDeadline(new Date(subgoaldeadline.getYear()-1900,subgoaldeadline.getMonth(),subgoaldeadline.getDayOfMonth()));
-                        input.save();
-                        dialog.dismiss();
+                        if(isNumeric(subgoalnum.getText().toString())&&!subgoalnum.getText().toString().equals(""))
+                        {
+                            input.setTotalnum(Integer.parseInt(subgoalnum.getText().toString()));
+                            input.setDeadline(new Date(subgoaldeadline.getYear() - 1900, subgoaldeadline.getMonth(), subgoaldeadline.getDayOfMonth()));
+                            input.save();
+                            dialog.dismiss();
+                        }
                     }
                 });
                 Dialog.show();
@@ -146,5 +163,13 @@ public class goalpage extends AppCompatActivity {
                 Dialog.show();
             }
         });
+    }
+    public boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if( !isNum.matches() ){
+            return false;
+        }
+        return true;
     }
 }

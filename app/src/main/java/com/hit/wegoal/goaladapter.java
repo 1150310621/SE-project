@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.hit.wegoal.entityclass.goal;
+import com.hit.wegoal.entityclass.remind;
 import com.hit.wegoal.entityclass.subgoal;
 
 import org.litepal.crud.DataSupport;
@@ -35,6 +36,7 @@ public class goaladapter extends RecyclerView.Adapter<goaladapter.ViewHolder> im
     @Override
     public void onItemDissmiss(int position) {
         //移除数据
+        DataSupport.deleteAll(remind.class,"goalname = ?",mygoal.get(position).getGoalname());
         DataSupport.deleteAll(goal.class,"goalname = ?",mygoal.get(position).getGoalname());
         DataSupport.deleteAll(subgoal.class,"goalname = ?",mygoal.get(position).getGoalname());
         mygoal.remove(position);
