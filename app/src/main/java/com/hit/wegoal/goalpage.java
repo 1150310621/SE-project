@@ -41,6 +41,7 @@ public class goalpage extends AppCompatActivity {
     private EditText subgoalname;
     private EditText subgoalnum;
     private DatePicker subgoaldeadline;
+    private home_lancher lancher_page;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
