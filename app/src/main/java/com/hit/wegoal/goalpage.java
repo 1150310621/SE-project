@@ -11,21 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.hit.wegoal.entityclass.goal;
 import com.hit.wegoal.entityclass.remind;
 import com.hit.wegoal.entityclass.subgoal;
-
 import org.feezu.liuli.timeselector.TimeSelector;
 import org.litepal.crud.DataSupport;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +31,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class goalpage extends AppCompatActivity {
+public class goalpage extends AppCompatActivity{
     private FloatingActionButton addgoal;
     private RecyclerView mygoal;
     private EditText yougoalname;
@@ -41,6 +39,7 @@ public class goalpage extends AppCompatActivity {
     private EditText subgoalname;
     private EditText subgoalnum;
     private DatePicker subgoaldeadline;
+    private Toolbar goaltoolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,6 @@ public class goalpage extends AppCompatActivity {
                 TimeSelector timeSelector = new TimeSelector(goalpage.this, new TimeSelector.ResultHandler() {
                         @Override
                     public void handle(String time) {
-                        Toast.makeText(goalpage.this, time, Toast.LENGTH_SHORT).show();
                             Date date = null;
                             try {
                                 date = formatter.parse(time);
@@ -79,14 +77,13 @@ public class goalpage extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             remind a=new remind();
-                            a.setRemindtime(date.getTime());
+                            a.setRemindtime(date);
                             a.setGoalname(goalname);
                             a.save();
                             AlarmManager alarmManager=alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                             Intent intent = new Intent(goalpage.this, alarmreceiver.class);
                             intent.putExtra("goalname",goalname);
                             int num=DataSupport.findAll(remind.class).size();
-                            Log.d("goalpage","a"+num);
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(goalpage.this,num, intent,PendingIntent.FLAG_CANCEL_CURRENT);
                             alarmManager.set(AlarmManager.RTC_WAKEUP,date.getTime(), pendingIntent);
                         }
@@ -163,6 +160,30 @@ public class goalpage extends AppCompatActivity {
                 Dialog.show();
             }
         });
+
+        goaltoolbar=(Toolbar)findViewById(R.id.goaltoolbar);
+        goaltoolbar.setTitle("welcome to wegoal");
+        setSupportActionBar(goaltoolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.goaltoolbar,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.remind:
+                Intent intent=new Intent(goalpage.this,remindpage.class);
+                startActivity(intent);
+                break;
+            case R.id.more:
+                break;
+            default:
+        }
+        return true;
     }
     public boolean isNumeric(String str){
         Pattern pattern = Pattern.compile("[0-9]*");

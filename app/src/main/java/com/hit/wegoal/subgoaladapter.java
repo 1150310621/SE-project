@@ -4,15 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.hit.wegoal.entityclass.subgoal;
-
 import org.litepal.crud.DataSupport;
-
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;

@@ -8,10 +8,10 @@
           android:title="share"
           app:showAsAction="always"
           />
-    <item
-        android:id="@+id/more"
-        android:icon="@mipmap/more"
-        android:title="more"
-        app:showAsAction="always"
-        />
+      <item
+         android:id="@+id/more"
+         android:icon="@mipmap/more"
+         android:title="more"
+         app:showAsAction="always"
+         />
 </menu>

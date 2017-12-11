@@ -3,17 +3,13 @@ package com.hit.wegoal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hit.wegoal.entityclass.subgoal;
 
@@ -65,11 +61,9 @@ public class subgoalpage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.share:
-                Toast.makeText(this,"try to share you process",Toast.LENGTH_SHORT).show();
                 //这里添加子目标进度分享的代码
                 break;
             case R.id.more:
-                Toast.makeText(this,"no use, thanks",Toast.LENGTH_SHORT).show();
                 break;
             default:
         }

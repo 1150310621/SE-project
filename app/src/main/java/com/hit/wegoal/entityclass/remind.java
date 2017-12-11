@@ -10,13 +10,13 @@ import java.util.Date;
 
 public class remind extends DataSupport{
     private String goalname;
-    private long remindtime;
+    private Date remindtime;
 
     public remind() {
         super();
     }
 
-    public remind(String goalname, long remindtime) {
+    public remind(String goalname, Date remindtime) {
         this.goalname = goalname;
         this.remindtime = remindtime;
     }
@@ -29,11 +29,11 @@ public class remind extends DataSupport{
         this.goalname = goalname;
     }
 
-    public long getRemindtime() {
+    public Date getRemindtime() {
         return remindtime;
     }
 
-    public void setRemindtime(long remindtime) {
+    public void setRemindtime(Date remindtime) {
         this.remindtime = remindtime;
     }
 }

@@ -18,9 +18,12 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".alarmreceiver"></receiver>
-        <receiver android:name=".backappreceiver"></receiver>
-        <activity android:name=".subgoalpage" />
-    </application>
+        <receiver android:name=".alarmreceiver" />
+        <receiver android:name=".backappreceiver" />
 
+        <activity android:name=".subgoalpage" />
+        <activity android:name=".remindpage"></activity>
+    </application>
+    <uses-permission android:name="android.permission.ADD_SYSTEM_SERVICE"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 </manifest>
