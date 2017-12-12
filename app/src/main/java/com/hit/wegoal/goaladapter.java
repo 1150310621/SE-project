@@ -9,9 +9,7 @@ import android.widget.TextView;
 import com.hit.wegoal.entityclass.goal;
 import com.hit.wegoal.entityclass.remind;
 import com.hit.wegoal.entityclass.subgoal;
-
 import org.litepal.crud.DataSupport;
-
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;

@@ -3,7 +3,6 @@ package com.hit.wegoal;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 /**
  * Created by 26049_000 on 2017/12/9.

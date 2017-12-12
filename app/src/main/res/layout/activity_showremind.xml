@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".subgoalpage">
+    tools:context="com.hit.wegoal.remindpage">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         <android.support.v7.widget.Toolbar
             app:theme="@style/toolBar"
             app:titleTextColor="#ffffff"
-            android:id="@+id/subgoaltoolbar"
+            android:id="@+id/remindtoolbar"
             android:layout_height="0dp"
             android:layout_weight="0.1"
             android:layout_width="match_parent"
@@ -23,11 +23,12 @@
         </android.support.v7.widget.Toolbar>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/subgoal"
+            android:id="@+id/remind"
             android:scrollbars="vertical"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_width="match_parent" />
 
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>
